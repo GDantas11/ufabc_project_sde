@@ -1,4 +1,6 @@
+#include <Arduino.h>
 #include <LiquidCrystal_I2C.h>
+#include <math.h>
 
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
@@ -43,6 +45,8 @@ void setup(){
 }
 
 void loop(){
+	heating();
+
 	Serial.print("Temperatura: ");
 	Serial.print(celsius_temp);
 	Serial.print(" C, Resistencia: ");
@@ -55,8 +59,6 @@ void loop(){
 	digitalWrite(DRIVER_1_PIN, HIGH);
 	digitalWrite(DRIVER_2_PIN, LOW);
 	analogWrite(DRIVER_SPEED_PIN, seep_pwm);
-
-	heating();
 
 	if (celsius_temp > 180.0) {
 		lcd.setCursor(0, 1);
